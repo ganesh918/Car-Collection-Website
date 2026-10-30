@@ -23,6 +23,9 @@ export const carImages = {
   /** Showroom / storage cinematic — matches hero mood */
   showroom: `${base}/showroom-test.jpg`,
   ctaExperience: `${base}/experience-modern.jpg?v=7`,
+  /** Auth pages — side panel & ambient background */
+  authSide: `${base}/experience-modern.jpg?v=8`,
+  authAmbient: `${base}/showroom-cinematic.jpg?v=2`,
 }
 
 export const PLACEHOLDER = `${base}/luxury-sedan-1.jpg`

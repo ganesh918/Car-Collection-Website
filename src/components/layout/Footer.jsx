@@ -14,6 +14,8 @@ const footerLinks = {
     { label: 'Contact', to: '/contact' },
     { label: 'FAQ', to: '/faq' },
     { label: 'Enquiry', to: '/enquiry' },
+    { label: 'Sign In', to: '/login' },
+    { label: 'Create Account', to: '/signup' },
   ],
   Services: [
     { label: 'Book Test Drive', to: '/book-test-drive' },

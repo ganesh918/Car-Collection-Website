@@ -1,7 +1,8 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, Menu, Scale, X } from 'lucide-react'
+import { Heart, Menu, Scale, User, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
 import { Link, NavLink, useLocation } from 'react-router-dom'
+import { useAuth } from '../../context/AuthContext'
 import { useComparison } from '../../context/ComparisonContext'
 import { useWishlist } from '../../context/WishlistContext'
 import VelvetLogoMark from '../brand/VelvetLogoMark'
@@ -21,6 +22,7 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
+  const { user, isAuthenticated } = useAuth()
   const { wishlistIds } = useWishlist()
   const { compareIds } = useComparison()
 
@@ -105,6 +107,14 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
+            <Link
+              to={isAuthenticated ? '/account' : '/login'}
+              className="hidden h-10 items-center gap-2 rounded-full border border-white/10 px-3 text-sm text-muted transition hover:border-chrome/40 hover:text-chrome-light sm:inline-flex"
+              aria-label={isAuthenticated ? 'My account' : 'Sign in'}
+            >
+              <User className="h-4 w-4 shrink-0" />
+              <span className="max-w-[7rem] truncate">{isAuthenticated ? user?.fullName?.split(' ')[0] : 'Sign in'}</span>
+            </Link>
             <Link to="/book-test-drive" className="nav-spin-border hidden md:inline-flex">
               <Button as="span" size="sm" className="relative z-20">
                 Book Test Drive
@@ -165,6 +175,12 @@ export default function Navbar() {
                 ))}
               </nav>
               <div className="mt-auto flex flex-col gap-3">
+                <Link to={isAuthenticated ? '/account' : '/login'}>
+                  <Button variant="ghost" className="w-full justify-start gap-2 border border-white/10">
+                    <User className="h-4 w-4" />
+                    {isAuthenticated ? `Account (${user?.fullName?.split(' ')[0]})` : 'Sign in / Register'}
+                  </Button>
+                </Link>
                 <Link to="/wishlist">
                   <Button variant="secondary" className="w-full">
                     Wishlist ({wishlistIds.length})
