@@ -1,5 +1,5 @@
-import { NavLink } from 'react-router-dom'
 import { motion } from 'framer-motion'
+import { NavLink } from 'react-router-dom'
 
 const tabs = [
   { to: '/login', label: 'Sign in' },

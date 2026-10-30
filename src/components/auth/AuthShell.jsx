@@ -19,7 +19,7 @@ export default function AuthShell({
   showTrust = true,
   compact = false,
 }) {
-  const padding = compact ? 'px-5 pt-4 pb-5 md:px-6 md:pb-6' : 'p-6 md:p-9'
+  const padding = compact ? 'px-5 pt-4 pb-5 md:px-6 md:pb-6' : 'p-6 md:p-8 lg:p-9'
 
   const staticBody = (
     <>

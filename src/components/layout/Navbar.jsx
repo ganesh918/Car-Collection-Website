@@ -1,12 +1,14 @@
 import { AnimatePresence, motion } from 'framer-motion'
-import { Heart, Menu, Scale, User, X } from 'lucide-react'
+import { Heart, LogOut, Menu, Scale, User, X } from 'lucide-react'
 import { useEffect, useState } from 'react'
-import { Link, NavLink, useLocation } from 'react-router-dom'
+import { Link, NavLink, useLocation, useNavigate } from 'react-router-dom'
 import { useAuth } from '../../context/AuthContext'
+import { useToast } from '../../context/ToastContext'
 import { useComparison } from '../../context/ComparisonContext'
 import { useWishlist } from '../../context/WishlistContext'
 import VelvetLogoMark from '../brand/VelvetLogoMark'
 import Button from '../ui/Button'
+import UserProfileMenu from './UserProfileMenu'
 
 const navLinks = [
   { to: '/', label: 'Home' },
@@ -22,7 +24,9 @@ export default function Navbar() {
   const [open, setOpen] = useState(false)
   const [scrolled, setScrolled] = useState(false)
   const location = useLocation()
-  const { user, isAuthenticated } = useAuth()
+  const { user, isAuthenticated, logout } = useAuth()
+  const { showToast } = useToast()
+  const navigate = useNavigate()
   const { wishlistIds } = useWishlist()
   const { compareIds } = useComparison()
 
@@ -44,15 +48,28 @@ export default function Navbar() {
     }
   }, [open])
 
+  useEffect(() => {
+    if (!open) return
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setOpen(false)
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [open])
+
+  const closeMenu = () => setOpen(false)
+
   return (
     <>
       <motion.header
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, ease: [0.22, 1, 0.36, 1] }}
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-500 ${
-          scrolled ? 'glass shadow-lg shadow-black/20' : 'bg-transparent'
-        }`}
+        className={`fixed inset-x-0 top-0 transition-all duration-500 ${
+          open ? 'z-[70]' : 'z-50'
+        } ${scrolled || open ? 'glass shadow-lg shadow-black/20' : 'bg-transparent'}`}
       >
         <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 md:px-6 lg:h-20 lg:px-8">
           <Link to="/" className="group flex items-center gap-2.5">
@@ -107,14 +124,7 @@ export default function Navbar() {
                 </span>
               )}
             </Link>
-            <Link
-              to={isAuthenticated ? '/account' : '/login'}
-              className="hidden h-10 items-center gap-2 rounded-full border border-white/10 px-3 text-sm text-muted transition hover:border-chrome/40 hover:text-chrome-light sm:inline-flex"
-              aria-label={isAuthenticated ? 'My account' : 'Sign in'}
-            >
-              <User className="h-4 w-4 shrink-0" />
-              <span className="max-w-[7rem] truncate">{isAuthenticated ? user?.fullName?.split(' ')[0] : 'Sign in'}</span>
-            </Link>
+            <UserProfileMenu />
             <Link to="/book-test-drive" className="nav-spin-border hidden md:inline-flex">
               <Button as="span" size="sm" className="relative z-20">
                 Book Test Drive
@@ -122,11 +132,16 @@ export default function Navbar() {
             </Link>
             <button
               type="button"
-              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-white lg:hidden"
-              onClick={() => setOpen(true)}
-              aria-label="Open menu"
+              className={`flex h-10 w-10 items-center justify-center rounded-full border text-white transition lg:hidden ${
+                open
+                  ? 'border-chrome/50 bg-white/10 text-chrome-light'
+                  : 'border-white/10'
+              }`}
+              onClick={() => setOpen((value) => !value)}
+              aria-expanded={open}
+              aria-label={open ? 'Close menu' : 'Open menu'}
             >
-              <Menu className="h-5 w-5" />
+              {open ? <X className="h-5 w-5" /> : <Menu className="h-5 w-5" />}
             </button>
           </div>
         </div>
@@ -139,20 +154,16 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-[60] bg-void/95 backdrop-blur-xl lg:hidden"
+            onClick={(event) => {
+              if (event.target === event.currentTarget) closeMenu()
+            }}
           >
-            <div className="flex h-full flex-col p-6">
-              <div className="flex items-center justify-between">
-                <span className="font-display text-xl font-bold">Menu</span>
-                <button
-                  type="button"
-                  onClick={() => setOpen(false)}
-                  className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10"
-                  aria-label="Close menu"
-                >
-                  <X className="h-5 w-5" />
-                </button>
+            <div className="relative flex h-full flex-col p-6 pt-24">
+              <div className="pointer-events-none absolute inset-x-0 top-0 flex items-center justify-between px-6 pt-6">
+                <span className="font-display text-xl font-bold text-white">Menu</span>
+                <span className="text-xs uppercase tracking-[0.2em] text-muted">Tap outside or press Esc</span>
               </div>
-              <nav className="mt-12 flex flex-col gap-2">
+              <nav className="mt-4 flex flex-1 flex-col justify-center gap-2">
                 {navLinks.map((link, i) => (
                   <motion.div
                     key={link.to}
@@ -163,8 +174,9 @@ export default function Navbar() {
                     <NavLink
                       to={link.to}
                       end={link.to === '/'}
+                      onClick={closeMenu}
                       className={({ isActive }) =>
-                        `block rounded-2xl px-4 py-4 font-display text-2xl ${
+                        `block rounded-2xl px-4 py-4 text-center font-display text-2xl ${
                           isActive ? 'text-chrome-light' : 'text-white/80'
                         }`
                       }
@@ -175,18 +187,38 @@ export default function Navbar() {
                 ))}
               </nav>
               <div className="mt-auto flex flex-col gap-3">
-                <Link to={isAuthenticated ? '/account' : '/login'}>
-                  <Button variant="ghost" className="w-full justify-start gap-2 border border-white/10">
-                    <User className="h-4 w-4" />
-                    {isAuthenticated ? `Account (${user?.fullName?.split(' ')[0]})` : 'Sign in / Register'}
+                <Button variant="ghost" className="w-full border border-white/10" onClick={closeMenu}>
+                  Close menu
+                </Button>
+                {!isAuthenticated && (
+                  <Link to="/login" onClick={closeMenu}>
+                    <Button variant="ghost" className="w-full justify-start gap-2 border border-white/10">
+                      <User className="h-4 w-4" />
+                      Sign in / Register
+                    </Button>
+                  </Link>
+                )}
+                {isAuthenticated && (
+                  <Button
+                    variant="secondary"
+                    className="w-full justify-start gap-2"
+                    onClick={() => {
+                      closeMenu()
+                      logout()
+                      showToast('Signed out successfully.', 'success')
+                      navigate('/', { replace: true })
+                    }}
+                  >
+                    <LogOut className="h-4 w-4" />
+                    Sign out
                   </Button>
-                </Link>
-                <Link to="/wishlist">
+                )}
+                <Link to="/wishlist" onClick={closeMenu}>
                   <Button variant="secondary" className="w-full">
                     Wishlist ({wishlistIds.length})
                   </Button>
                 </Link>
-                <Link to="/book-test-drive" className="nav-spin-border nav-spin-border--block">
+                <Link to="/book-test-drive" className="nav-spin-border nav-spin-border--block" onClick={closeMenu}>
                   <Button as="span" className="relative z-20 w-full">
                     Book Test Drive
                   </Button>

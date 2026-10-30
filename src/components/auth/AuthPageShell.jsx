@@ -7,7 +7,7 @@ import { usePageTitle } from '../../hooks/usePageTitle'
 
 const ease = [0.22, 1, 0.36, 1]
 
-function panelVariants(reduceMotion) {
+function cardContentVariants(reduceMotion) {
   if (reduceMotion) {
     return {
       initial: { opacity: 0 },
@@ -18,20 +18,17 @@ function panelVariants(reduceMotion) {
   return {
     initial: (direction) => ({
       opacity: 0,
-      x: direction * 16,
-      filter: 'blur(2px)',
+      x: direction * 14,
     }),
     animate: {
       opacity: 1,
       x: 0,
-      filter: 'blur(0px)',
-      transition: { duration: 0.36, ease },
+      transition: { duration: 0.34, ease },
     },
     exit: (direction) => ({
       opacity: 0,
-      x: direction * -16,
-      filter: 'blur(2px)',
-      transition: { duration: 0.28, ease },
+      x: direction * -14,
+      transition: { duration: 0.26, ease },
     }),
   }
 }
@@ -79,7 +76,7 @@ export default function AuthPageShell() {
               <motion.div
                 key={pathname}
                 custom={direction}
-                variants={panelVariants(reduceMotion)}
+                variants={cardContentVariants(reduceMotion)}
                 initial="initial"
                 animate="animate"
                 exit="exit"

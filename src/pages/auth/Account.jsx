@@ -1,4 +1,5 @@
-import { Calendar, Heart, LogOut, Scale, Sparkles, User } from 'lucide-react'
+import { ArrowLeft, Calendar, Heart, LogOut, Scale, Sparkles, User, X } from 'lucide-react'
+import { useCallback, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import Button from '../../components/ui/Button'
 import PageTransition from '../../components/ui/PageTransition'
@@ -23,6 +24,23 @@ function AccountContent() {
     navigate('/', { replace: true })
   }
 
+  const handleClose = useCallback(() => {
+    if (window.history.state?.idx > 0) {
+      navigate(-1)
+    } else {
+      navigate('/')
+    }
+  }, [navigate])
+
+  useEffect(() => {
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') handleClose()
+    }
+
+    document.addEventListener('keydown', onKeyDown)
+    return () => document.removeEventListener('keydown', onKeyDown)
+  }, [handleClose])
+
   const initials = user.fullName
     .split(' ')
     .map((n) => n[0])
@@ -41,6 +59,24 @@ function AccountContent() {
     <PageTransition>
       <div className="mx-auto max-w-4xl px-4 py-12 md:px-6 lg:py-16">
         <div className="overflow-hidden rounded-3xl border border-white/10 bg-surface-elevated">
+          <div className="flex items-center justify-between gap-3 border-b border-white/8 px-5 py-4 md:px-8">
+            <button
+              type="button"
+              onClick={handleClose}
+              className="inline-flex items-center gap-2 rounded-full border border-white/10 px-3 py-2 text-sm text-muted transition hover:border-chrome/40 hover:text-chrome-light"
+            >
+              <ArrowLeft className="h-4 w-4 shrink-0" />
+              Back
+            </button>
+            <button
+              type="button"
+              onClick={handleClose}
+              aria-label="Close account"
+              className="flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-muted transition hover:border-chrome/40 hover:text-white"
+            >
+              <X className="h-5 w-5" />
+            </button>
+          </div>
           <div className="h-1 bg-linear-to-r from-transparent via-chrome to-transparent" />
           <div className="border-b border-white/8 bg-linear-to-br from-chrome/10 to-transparent p-8 md:p-10">
             <div className="flex flex-wrap items-center gap-6">
