@@ -1,7 +1,7 @@
 import { BrowserRouter, Route, Routes } from 'react-router-dom'
 import ScrollToTop from './components/ScrollToTop'
 import AuthLayout from './components/layout/AuthLayout'
-import Layout from './components/layout/Layout'
+import ProtectedLayout from './components/layout/ProtectedLayout'
 import { AuthProvider } from './context/AuthContext'
 import { ComparisonProvider } from './context/ComparisonContext'
 import { ToastProvider } from './context/ToastContext'
@@ -40,7 +40,7 @@ export default function App() {
                   </Route>
                   <Route path="forgot-password" element={<ForgotPassword />} />
                 </Route>
-                <Route element={<Layout />}>
+                <Route element={<ProtectedLayout />}>
                   <Route index element={<Home />} />
                   <Route path="collection" element={<Collection />} />
                   <Route path="cars/:id" element={<CarDetails />} />

@@ -7,12 +7,16 @@ export default function RequireAuth({ children }) {
 
   if (!bootstrapped) {
     return (
-      <div className="flex min-h-[40vh] items-center justify-center text-sm text-muted">Loading…</div>
+      <div className="flex min-h-screen items-center justify-center bg-void text-sm text-muted">
+        Loading…
+      </div>
     )
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/login" replace state={{ from: location.pathname }} />
+    return (
+      <Navigate to="/login" replace state={{ from: location.pathname + location.search }} />
+    )
   }
 
   return children

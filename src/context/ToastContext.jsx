@@ -24,10 +24,12 @@ export function ToastProvider({ children }) {
             initial={{ opacity: 0, y: 16, x: '-50%' }}
             animate={{ opacity: 1, y: 0, x: '-50%' }}
             exit={{ opacity: 0, y: 8, x: '-50%' }}
-            className={`fixed bottom-6 left-1/2 z-[100] max-w-md rounded-full border px-5 py-3 text-sm shadow-xl backdrop-blur-md ${
+            className={`fixed bottom-6 left-1/2 z-[100] max-w-md rounded-2xl border px-5 py-3 text-sm shadow-xl backdrop-blur-md ${
               toast.variant === 'success'
                 ? 'border-chrome/40 bg-surface-elevated/95 text-chrome-light'
-                : 'border-white/15 bg-surface-elevated/95 text-white'
+                : toast.variant === 'error'
+                  ? 'border-red-500/50 bg-red-950/90 text-red-100'
+                  : 'border-white/15 bg-surface-elevated/95 text-white'
             }`}
           >
             {toast.message}

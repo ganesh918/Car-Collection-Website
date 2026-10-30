@@ -1,6 +1,6 @@
 import { Loader2, Mail } from 'lucide-react'
 import { useState } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import AuthTextField from '../../components/auth/AuthTextField'
 import PasswordField from '../../components/auth/PasswordField'
 import Button from '../../components/ui/Button'
@@ -12,6 +12,8 @@ export default function Login() {
   const { login } = useAuth()
   const { showToast } = useToast()
   const navigate = useNavigate()
+  const location = useLocation()
+  const redirectTo = location.state?.from || '/'
 
   const [form, setForm] = useState({ email: '', password: '', remember: true })
   const [errors, setErrors] = useState({})
@@ -33,17 +35,21 @@ export default function Login() {
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!validate()) return
+    if (!validate()) {
+      showToast('Enter a valid email and password.', 'error')
+      return
+    }
     setLoading(true)
     await new Promise((r) => setTimeout(r, 550))
     const result = login({ email: form.email, password: form.password })
     setLoading(false)
     if (!result.ok) {
       setErrors({ password: result.error })
+      showToast(result.error, 'error')
       return
     }
     showToast(`Welcome back, ${result.user.fullName.split(' ')[0]}.`, 'success')
-    navigate('/', { replace: true })
+    navigate(redirectTo, { replace: true })
   }
 
   return (

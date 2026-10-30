@@ -17,6 +17,7 @@ export default function SignUp() {
     fullName: '',
     email: '',
     password: '',
+    confirmPassword: '',
     terms: false,
   })
   const [errors, setErrors] = useState({})
@@ -35,14 +36,28 @@ export default function SignUp() {
     if (!validatePassword(form.password)) {
       next.password = '8+ chars with letter & number'
     }
-    if (!form.terms) next.terms = 'Required'
+    if (!form.confirmPassword) {
+      next.confirmPassword = 'Confirm your password'
+    } else if (form.password !== form.confirmPassword) {
+      next.confirmPassword = 'Passwords do not match'
+    }
+    if (!form.terms) next.terms = 'You must agree to continue'
     setErrors(next)
     return Object.keys(next).length === 0
   }
 
   const handleSubmit = async (e) => {
     e.preventDefault()
-    if (!validate()) return
+    if (!validate()) {
+      if (!form.terms) {
+        showToast('Please agree to the terms & privacy to create an account.', 'error')
+      } else if (form.password && form.confirmPassword && form.password !== form.confirmPassword) {
+        showToast('Passwords do not match.', 'error')
+      } else {
+        showToast('Please fix the highlighted fields.', 'error')
+      }
+      return
+    }
     setLoading(true)
     await new Promise((r) => setTimeout(r, 600))
     const result = register({
@@ -53,6 +68,7 @@ export default function SignUp() {
     setLoading(false)
     if (!result.ok) {
       setErrors({ email: result.error })
+      showToast(result.error, 'error')
       return
     }
     showToast('Welcome to Velvet Motors.', 'success')
@@ -95,18 +111,34 @@ export default function SignUp() {
         required
       />
 
-      <label className="flex cursor-pointer items-center gap-2.5 text-xs text-muted">
-        <input
-          type="checkbox"
-          checked={form.terms}
-          onChange={update('terms')}
-          className="h-3.5 w-3.5 shrink-0 rounded border-white/20 bg-surface accent-chrome"
-        />
-        <span>
-          I agree to terms & privacy (demo)
-          {errors.terms && <span className="ml-1 text-accent">*</span>}
-        </span>
-      </label>
+      <PasswordField
+        label="Confirm password"
+        autoComplete="new-password"
+        value={form.confirmPassword}
+        onChange={update('confirmPassword')}
+        placeholder="Re-enter password"
+        error={errors.confirmPassword}
+        required
+      />
+
+      <div className="space-y-1.5">
+        <label
+          className={`flex cursor-pointer items-start gap-2.5 text-xs ${
+            errors.terms ? 'text-red-400' : 'text-muted'
+          }`}
+        >
+          <input
+            type="checkbox"
+            checked={form.terms}
+            onChange={update('terms')}
+            className={`mt-0.5 h-3.5 w-3.5 shrink-0 rounded bg-surface accent-chrome ${
+              errors.terms ? 'border-red-500 ring-1 ring-red-500/40' : 'border-white/20'
+            }`}
+          />
+          <span>I agree to terms & privacy (demo)</span>
+        </label>
+        {errors.terms && <p className="text-xs font-medium text-red-400">{errors.terms}</p>}
+      </div>
 
       <Button type="submit" className="mt-1 w-full gap-2" size="md" disabled={loading}>
         {loading ? (
