@@ -15,9 +15,9 @@ const navLinks = [
   { to: '/collection', label: 'Collection' },
   { to: '/brands', label: 'Brands' },
   { to: '/compare', label: 'Compare' },
-  { to: '/about', label: 'About', compactHidden: true },
-  { to: '/contact', label: 'Contact', compactHidden: true },
-  { to: '/faq', label: 'FAQ', compactHidden: true },
+  { to: '/about', label: 'About' },
+  { to: '/contact', label: 'Contact' },
+  { to: '/faq', label: 'FAQ' },
 ]
 
 export default function Navbar() {
@@ -84,14 +84,14 @@ export default function Navbar() {
             </div>
           </Link>
 
-          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 md:flex lg:gap-1">
+          <nav className="scrollbar-thin hidden min-w-0 flex-1 items-center justify-center gap-0.5 overflow-x-auto lg:flex lg:gap-1">
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 end={link.to === '/'}
                 className={({ isActive }) =>
-                  `${link.compactHidden ? 'hidden xl:inline-flex' : 'inline-flex'} items-center whitespace-nowrap rounded-full px-2.5 py-2 text-xs transition-colors md:px-2 md:py-1.5 lg:px-3 lg:py-2 lg:text-sm xl:px-4 ${
+                  `inline-flex shrink-0 items-center whitespace-nowrap rounded-full px-3 py-2 text-sm transition-colors xl:px-4 ${
                     isActive ? 'bg-white/10 text-chrome-light' : 'text-muted hover:text-white'
                   }`
                 }
@@ -116,7 +116,7 @@ export default function Navbar() {
             </Link>
             <Link
               to="/compare"
-              className="relative hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 text-muted transition hover:border-chrome/40 hover:text-chrome-light sm:flex md:hidden"
+              className="relative hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 text-muted transition hover:border-chrome/40 hover:text-chrome-light sm:flex lg:hidden"
               aria-label="Compare"
             >
               <Scale className="h-4 w-4" />
@@ -129,7 +129,7 @@ export default function Navbar() {
             <UserProfileMenu />
             <Link
               to="/book-test-drive"
-              className="nav-spin-border nav-spin-border--header hidden shrink-0 md:inline-flex"
+              className="nav-spin-border nav-spin-border--header hidden shrink-0 lg:inline-flex"
               aria-label="Test drive"
             >
               <Button
@@ -142,7 +142,7 @@ export default function Navbar() {
             </Link>
             <button
               type="button"
-              className={`flex h-9 w-9 items-center justify-center rounded-full border text-white transition md:hidden lg:h-10 lg:w-10 ${
+              className={`flex h-9 w-9 items-center justify-center rounded-full border text-white transition lg:hidden lg:h-10 lg:w-10 ${
                 open
                   ? 'border-chrome/50 bg-white/10 text-chrome-light'
                   : 'border-white/10'
@@ -163,7 +163,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-void/95 backdrop-blur-xl md:hidden"
+            className="fixed inset-0 z-[60] bg-void/95 backdrop-blur-xl lg:hidden"
             onClick={(event) => {
               if (event.target === event.currentTarget) closeMenu()
             }}
