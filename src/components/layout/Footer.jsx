@@ -30,7 +30,7 @@ export default function Footer() {
     <footer className="relative mt-24 border-t border-white/8 bg-surface">
       <div className="pointer-events-none absolute inset-x-0 -top-px h-px bg-linear-to-r from-transparent via-chrome/40 to-transparent" />
       <div className="mx-auto max-w-7xl px-4 py-16 md:px-6 lg:px-8 lg:py-20">
-        <AnimatedSection className="grid gap-12 lg:grid-cols-[1.2fr_2fr]">
+        <AnimatedSection className="grid gap-10 md:grid-cols-[1fr_1.5fr] md:gap-12 lg:grid-cols-[1.2fr_2fr]">
           <div>
             <Link to="/" className="inline-flex items-center gap-2">
               <span className="flex h-10 w-10 items-center justify-center rounded-full border border-chrome/40 bg-chrome/10 font-display font-bold text-chrome">

@@ -52,7 +52,8 @@ export default function Compare() {
             </Link>
           </div>
         ) : (
-          <div className="overflow-x-auto scrollbar-thin rounded-3xl border border-white/8">
+          <div className="-mx-4 overflow-x-auto px-4 scrollbar-thin md:mx-0 md:px-0">
+            <div className="min-w-0 rounded-3xl border border-white/8">
             <table className="w-full min-w-[640px] border-collapse text-sm">
               <thead>
                 <tr className="border-b border-white/8 bg-surface-elevated">
@@ -106,6 +107,7 @@ export default function Compare() {
                 ))}
               </tbody>
             </table>
+            </div>
           </div>
         )}
 

@@ -166,9 +166,9 @@ export default function BookTestDrive() {
       </section>
 
       <div className="mx-auto max-w-7xl px-4 py-12 md:px-6 lg:px-8 lg:py-16">
-        <div className="grid gap-10 lg:grid-cols-12 lg:gap-14">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-start lg:gap-14">
           {/* Sidebar */}
-          <aside className="space-y-6 lg:col-span-4 xl:col-span-4">
+          <aside className="space-y-6 lg:sticky lg:top-24 lg:col-span-4 xl:col-span-4">
             <div className="overflow-hidden rounded-2xl border border-white/10 bg-surface-elevated">
               {selectedCar ? (
                 <>
@@ -290,7 +290,7 @@ export default function BookTestDrive() {
 
               <div>
                 <p className="mb-3 text-sm text-muted">Experience location</p>
-                <div className="grid gap-3 sm:grid-cols-3">
+                <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
                   {locations.map(({ id, title, description, icon: Icon }) => (
                     <button
                       key={id}
@@ -320,12 +320,17 @@ export default function BookTestDrive() {
               />
             </FormSection>
 
-            <div className="mt-10 flex flex-col gap-4 border-t border-white/8 pt-8 sm:flex-row sm:items-center sm:justify-between">
-              <p className="flex items-center gap-2 text-xs text-muted">
-                <Calendar className="h-4 w-4 text-chrome" />
+            <div className="mt-10 flex flex-col gap-4 border-t border-white/8 pt-8 md:gap-5 lg:flex-row lg:items-center lg:justify-between">
+              <p className="order-2 flex items-center gap-2 text-xs text-muted lg:order-1">
+                <Calendar className="h-4 w-4 shrink-0 text-chrome" />
                 Average confirmation time: under 24 hours
               </p>
-              <Button type="submit" size="lg" disabled={loading} className="w-full sm:w-auto">
+              <Button
+                type="submit"
+                size="lg"
+                disabled={loading}
+                className="order-1 w-full lg:order-2 lg:w-auto lg:min-w-[14rem]"
+              >
                 {loading ? 'Securing your session…' : 'Confirm Test Drive'}
               </Button>
             </div>

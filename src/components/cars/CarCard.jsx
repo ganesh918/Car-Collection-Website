@@ -113,10 +113,10 @@ export default function CarCard({ car, index = 0 }) {
             <span className="text-muted">MPH</span>
           </div>
         </div>
-        <div className="flex items-center justify-between gap-3">
-          <p className="font-display text-xl font-bold text-chrome-light">{formatPrice(car.price)}</p>
-          <Link to={`/cars/${car.id}`}>
-            <Button variant="secondary" size="sm">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <p className="font-display text-lg font-bold text-chrome-light md:text-xl">{formatPrice(car.price)}</p>
+          <Link to={`/cars/${car.id}`} className="sm:shrink-0">
+            <Button variant="secondary" size="sm" className="w-full sm:w-auto">
               View Details
             </Button>
           </Link>

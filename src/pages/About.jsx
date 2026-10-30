@@ -43,7 +43,7 @@ export default function About() {
             subtitle="Velvet Motors is a boutique collective of enthusiasts, engineers, and hospitality professionals united by one mission: elevate how the world discovers exceptional cars."
           />
 
-          <div className="grid gap-8 lg:grid-cols-2 lg:gap-16">
+          <div className="grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-16">
             <AnimatedSection>
               <p className="leading-relaxed text-muted">
                 We began as a small studio showcasing a handful of European grand tourers. Today, our clients span

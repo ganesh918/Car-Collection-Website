@@ -15,9 +15,9 @@ const navLinks = [
   { to: '/collection', label: 'Collection' },
   { to: '/brands', label: 'Brands' },
   { to: '/compare', label: 'Compare' },
-  { to: '/about', label: 'About' },
-  { to: '/contact', label: 'Contact' },
-  { to: '/faq', label: 'FAQ' },
+  { to: '/about', label: 'About', compactHidden: true },
+  { to: '/contact', label: 'Contact', compactHidden: true },
+  { to: '/faq', label: 'FAQ', compactHidden: true },
 ]
 
 export default function Navbar() {
@@ -71,25 +71,27 @@ export default function Navbar() {
           open ? 'z-[70]' : 'z-50'
         } ${scrolled || open ? 'glass shadow-lg shadow-black/20' : 'bg-transparent'}`}
       >
-        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between px-4 md:px-6 lg:h-20 lg:px-8">
-          <Link to="/" className="group flex items-center gap-2.5">
+        <div className="mx-auto flex h-18 max-w-7xl items-center justify-between gap-3 px-4 md:px-5 lg:h-20 lg:gap-4 lg:px-8">
+          <Link to="/" className="group flex min-w-0 shrink items-center gap-2 md:gap-2.5">
             <span className="logo-mark relative flex shrink-0 items-center justify-center transition duration-500 group-hover:scale-[1.04]">
-              <VelvetLogoMark className="h-10 w-10" />
+              <VelvetLogoMark className="h-9 w-9 md:h-10 md:w-10" />
             </span>
-            <div className="leading-tight">
-              <span className="font-display text-lg font-bold tracking-wide text-white">Velvet</span>
-              <span className="block text-[10px] uppercase tracking-[0.35em] text-muted">Motors</span>
+            <div className="min-w-0 leading-tight">
+              <span className="font-display text-base font-bold tracking-wide text-white md:text-lg">Velvet</span>
+              <span className="block text-[9px] uppercase tracking-[0.32em] text-muted md:text-[10px] md:tracking-[0.35em]">
+                Motors
+              </span>
             </div>
           </Link>
 
-          <nav className="hidden items-center gap-1 lg:flex">
+          <nav className="hidden min-w-0 flex-1 items-center justify-center gap-0.5 md:flex lg:gap-1">
             {navLinks.map((link) => (
               <NavLink
                 key={link.to}
                 to={link.to}
                 end={link.to === '/'}
                 className={({ isActive }) =>
-                  `rounded-full px-4 py-2 text-sm transition-colors ${
+                  `${link.compactHidden ? 'hidden xl:inline-flex' : 'inline-flex'} items-center whitespace-nowrap rounded-full px-2.5 py-2 text-xs transition-colors md:px-2 md:py-1.5 lg:px-3 lg:py-2 lg:text-sm xl:px-4 ${
                     isActive ? 'bg-white/10 text-chrome-light' : 'text-muted hover:text-white'
                   }`
                 }
@@ -99,10 +101,10 @@ export default function Navbar() {
             ))}
           </nav>
 
-          <div className="flex items-center gap-2 md:gap-3">
+          <div className="flex shrink-0 items-center gap-1.5 md:gap-2 lg:gap-3">
             <Link
               to="/wishlist"
-              className="relative flex h-10 w-10 items-center justify-center rounded-full border border-white/10 text-muted transition hover:border-chrome/40 hover:text-chrome-light"
+              className="relative flex h-9 w-9 items-center justify-center rounded-full border border-white/10 text-muted transition hover:border-chrome/40 hover:text-chrome-light md:h-10 md:w-10"
               aria-label="Wishlist"
             >
               <Heart className="h-4 w-4" />
@@ -114,7 +116,7 @@ export default function Navbar() {
             </Link>
             <Link
               to="/compare"
-              className="relative hidden h-10 w-10 items-center justify-center rounded-full border border-white/10 text-muted transition hover:border-chrome/40 hover:text-chrome-light sm:flex"
+              className="relative hidden h-9 w-9 items-center justify-center rounded-full border border-white/10 text-muted transition hover:border-chrome/40 hover:text-chrome-light sm:flex md:hidden"
               aria-label="Compare"
             >
               <Scale className="h-4 w-4" />
@@ -125,14 +127,22 @@ export default function Navbar() {
               )}
             </Link>
             <UserProfileMenu />
-            <Link to="/book-test-drive" className="nav-spin-border hidden md:inline-flex">
-              <Button as="span" size="sm" className="relative z-20">
-                Book Test Drive
+            <Link
+              to="/book-test-drive"
+              className="nav-spin-border nav-spin-border--header hidden shrink-0 md:inline-flex"
+              aria-label="Test drive"
+            >
+              <Button
+                as="span"
+                size="sm"
+                className="nav-test-drive-btn relative z-20 shrink-0 whitespace-nowrap px-4 py-2 text-xs md:text-sm"
+              >
+                Test Drive
               </Button>
             </Link>
             <button
               type="button"
-              className={`flex h-10 w-10 items-center justify-center rounded-full border text-white transition lg:hidden ${
+              className={`flex h-9 w-9 items-center justify-center rounded-full border text-white transition md:hidden lg:h-10 lg:w-10 ${
                 open
                   ? 'border-chrome/50 bg-white/10 text-chrome-light'
                   : 'border-white/10'
@@ -153,7 +163,7 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 z-[60] bg-void/95 backdrop-blur-xl lg:hidden"
+            className="fixed inset-0 z-[60] bg-void/95 backdrop-blur-xl md:hidden"
             onClick={(event) => {
               if (event.target === event.currentTarget) closeMenu()
             }}
@@ -219,8 +229,8 @@ export default function Navbar() {
                   </Button>
                 </Link>
                 <Link to="/book-test-drive" className="nav-spin-border nav-spin-border--block" onClick={closeMenu}>
-                  <Button as="span" className="relative z-20 w-full">
-                    Book Test Drive
+                  <Button as="span" className="nav-test-drive-btn relative z-20 w-full whitespace-nowrap">
+                    Test Drive
                   </Button>
                 </Link>
               </div>

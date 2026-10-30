@@ -19,7 +19,7 @@ export default function FeaturedCars() {
           <Button variant="outline">View All Cars</Button>
         </Link>
       </div>
-      <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-6 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
         {featured.map((car, i) => (
           <CarCard key={car.id} car={car} index={i} />
         ))}

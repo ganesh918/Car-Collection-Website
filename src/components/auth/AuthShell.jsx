@@ -90,12 +90,12 @@ export default function AuthShell({
         </p>
       </section>
 
-      <section className="flex w-full shrink-0 flex-col justify-center px-4 md:px-8 lg:w-[min(100%,520px)] lg:max-w-[520px] lg:px-10 xl:w-[480px] xl:pr-14">
+      <section className="flex w-full shrink-0 flex-col justify-center px-4 sm:px-6 md:items-center md:px-8 lg:items-stretch lg:w-[min(100%,520px)] lg:max-w-[520px] lg:px-10 xl:w-[480px] xl:pr-14">
         <motion.div
           initial={{ opacity: 0, x: 20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.55, ease: [0.22, 1, 0.36, 1] }}
-          className="ml-auto w-full max-w-[440px] lg:max-w-none"
+          className="mx-auto w-full max-w-[440px] md:max-w-[420px] lg:ml-auto lg:mr-0 lg:max-w-none"
         >
           <div className="auth-panel-ring rounded-[1.75rem] p-[2px]">
             <div className="auth-panel overflow-hidden rounded-[1.65rem] border border-white/10 bg-surface-elevated/95 shadow-[0_32px_100px_rgba(0,0,0,0.65)] backdrop-blur-xl">
@@ -104,7 +104,7 @@ export default function AuthShell({
             </div>
           </div>
 
-          <p className="mt-6 text-center text-xs text-white/40 lg:text-right">
+          <p className="mt-6 text-center text-xs text-white/40 md:text-center lg:text-right">
             Need help?{' '}
             <Link to="/contact" className="text-chrome-light/80 transition hover:text-chrome">
               Contact concierge

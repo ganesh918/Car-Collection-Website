@@ -61,7 +61,7 @@ export default function CollectionFilters({
         />
       </div>
 
-      <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+      <div className="grid gap-4 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
         <select value={category} onChange={(e) => setCategory(e.target.value)} className={selectClass}>
           {CATEGORIES.map((c) => (
             <option key={c} value={c} className="bg-surface">

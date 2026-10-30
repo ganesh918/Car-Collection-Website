@@ -37,7 +37,7 @@ export default function ServicesSection() {
           subtitle="Every touchpoint is designed to feel personal, private, and impeccably executed."
           align="center"
         />
-        <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid gap-5 sm:grid-cols-2 md:grid-cols-2 lg:grid-cols-4">
           {services.map((service, i) => (
             <AnimatedSection key={service.title} delay={i * 0.06}>
               <motion.div

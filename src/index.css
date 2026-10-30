@@ -148,6 +148,41 @@ body {
   flex: 1;
 }
 
+/* Header CTA — always a horizontal pill (never a squeezed circle) */
+.nav-spin-border--header {
+  width: max-content;
+  min-width: max-content;
+  flex: 0 0 auto;
+}
+
+.nav-test-drive-btn {
+  white-space: nowrap;
+  min-width: max-content;
+}
+
+/* Tablet through compact desktop — tighter ring, same single-line label */
+@media (min-width: 768px) and (max-width: 1279px) {
+  .nav-spin-border--header {
+    padding: 2px;
+    box-shadow:
+      0 0 0 1px rgba(212, 175, 106, 0.5),
+      0 0 18px rgba(212, 175, 106, 0.35);
+  }
+
+  .nav-spin-border--header::before {
+    width: 220%;
+  }
+
+  .nav-spin-border--header::after {
+    box-shadow: inset 0 0 8px rgba(212, 175, 106, 0.28);
+  }
+
+  .nav-test-drive-btn {
+    padding-left: 1rem;
+    padding-right: 1rem;
+  }
+}
+
 .logo-mark {
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.45));
 }

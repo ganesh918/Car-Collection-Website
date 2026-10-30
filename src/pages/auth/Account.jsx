@@ -79,16 +79,22 @@ function AccountContent() {
           </div>
           <div className="h-1 bg-linear-to-r from-transparent via-chrome to-transparent" />
           <div className="border-b border-white/8 bg-linear-to-br from-chrome/10 to-transparent p-8 md:p-10">
-            <div className="flex flex-wrap items-center gap-6">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full border border-chrome/40 bg-void font-display text-xl font-bold text-chrome-light">
-                {initials}
+            <div className="flex flex-col gap-5 sm:flex-row sm:flex-wrap sm:items-center md:gap-6">
+              <div className="flex items-center gap-4 sm:gap-6">
+                <div className="flex h-14 w-14 shrink-0 items-center justify-center rounded-full border border-chrome/40 bg-void font-display text-lg font-bold text-chrome-light md:h-16 md:w-16 md:text-xl">
+                  {initials}
+                </div>
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold uppercase tracking-[0.28em] text-chrome">Member</p>
+                  <h1 className="mt-1 font-display text-2xl font-bold md:text-3xl">{user.fullName}</h1>
+                  <p className="mt-1 truncate text-sm text-muted">{user.email}</p>
+                </div>
               </div>
-              <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.28em] text-chrome">Member</p>
-                <h1 className="mt-1 font-display text-3xl font-bold">{user.fullName}</h1>
-                <p className="mt-1 text-sm text-muted">{user.email}</p>
-              </div>
-              <Button variant="secondary" className="ml-auto gap-2" onClick={handleLogout}>
+              <Button
+                variant="secondary"
+                className="w-full gap-2 sm:ml-auto sm:w-auto"
+                onClick={handleLogout}
+              >
                 <LogOut className="h-4 w-4" />
                 Sign out
               </Button>

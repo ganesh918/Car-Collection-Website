@@ -33,7 +33,7 @@ export default function CarDetails() {
           <ArrowLeft className="h-4 w-4" /> Back to collection
         </Link>
 
-        <div className="grid gap-10 lg:grid-cols-2 lg:gap-14">
+        <div className="grid gap-8 md:grid-cols-2 md:gap-10 lg:gap-14">
           <div>
             <motion.div
               key={activeImage}

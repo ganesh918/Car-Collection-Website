@@ -54,7 +54,7 @@ export default function Hero() {
 
       <motion.div
         style={{ y: contentY, opacity: contentOpacity }}
-        className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 pb-24 pt-28 will-change-transform md:px-6 lg:px-8"
+        className="relative mx-auto flex min-h-[100svh] max-w-7xl flex-col justify-center px-4 pb-20 pt-24 will-change-transform sm:pb-24 sm:pt-28 md:px-6 md:pb-24 lg:px-8"
       >
         <motion.div
           initial={reduceMotion ? false : { opacity: 0, y: 36 }}
@@ -66,20 +66,22 @@ export default function Hero() {
             <span className="h-1.5 w-1.5 animate-pulse rounded-full bg-chrome" />
             Premium Automotive Collection 2025
           </div>
-          <h1 className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-6xl lg:text-7xl">
+          <h1 className="font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl md:text-5xl lg:text-6xl xl:text-7xl">
             Drive the <span className="text-gradient-gold">Extraordinary</span>
           </h1>
           <p className="mt-6 max-w-xl text-base leading-relaxed text-white/75 md:text-lg">
             Discover hand-selected luxury, sports, SUV, and supercar masterpieces — engineered for emotion,
             curated for connoisseurs.
           </p>
-          <div className="mt-10 flex flex-wrap items-center gap-4">
-            <Link to="/collection">
-              <Button size="lg">Explore Collection</Button>
+          <div className="mt-10 flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-stretch sm:gap-4 md:max-w-xl md:flex-row">
+            <Link to="/collection" className="w-full sm:w-auto">
+              <Button size="lg" className="w-full sm:w-auto">
+                Explore Collection
+              </Button>
             </Link>
-            <Link to="/book-test-drive">
-              <Button variant="secondary" size="lg">
-                <Play className="h-4 w-4 fill-current" />
+            <Link to="/book-test-drive" className="w-full sm:w-auto">
+              <Button variant="secondary" size="lg" className="w-full sm:w-auto">
+                <Play className="h-4 w-4 shrink-0 fill-current" />
                 Book Test Drive
               </Button>
             </Link>
@@ -100,7 +102,7 @@ export default function Hero() {
           initial={reduceMotion ? false : { opacity: 0, x: 28 }}
           animate={reduceMotion ? undefined : { opacity: 1, x: 0 }}
           transition={{ delay: 0.45, duration: 0.9, ease: easeOut }}
-          className="absolute bottom-8 right-4 hidden w-72 rounded-2xl glass p-5 lg:block xl:right-8"
+          className="absolute bottom-6 right-4 hidden w-60 rounded-2xl glass p-4 md:block md:w-64 lg:bottom-8 lg:w-72 lg:p-5 xl:right-8"
         >
           <p className="text-xs uppercase tracking-wider text-chrome">Featured This Week</p>
           <p className="mt-2 font-display text-lg font-bold">Porsche 911 Turbo S</p>

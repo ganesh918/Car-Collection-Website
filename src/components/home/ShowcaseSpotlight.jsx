@@ -15,19 +15,19 @@ export default function ShowcaseSpotlight() {
     <section className="mx-auto max-w-7xl px-4 py-20 md:px-6 lg:px-8 lg:py-28">
       <AnimatedSection>
         <div className="overflow-hidden rounded-[2rem] border border-white/10 bg-surface-elevated">
-          <div className="grid lg:grid-cols-12">
-            <div className="relative lg:col-span-7">
+          <div className="grid md:grid-cols-2 lg:grid-cols-12">
+            <div className="relative md:min-h-[280px] lg:col-span-7">
               <CarImage
                 src={spotlight.image}
                 alt={spotlight.name}
-                className="h-full min-h-[320px] w-full object-cover lg:min-h-[520px]"
+                className="h-full min-h-[280px] w-full object-cover md:min-h-full lg:min-h-[520px]"
               />
-              <div className="absolute inset-0 bg-linear-to-r from-transparent via-transparent to-surface-elevated/90 lg:to-surface-elevated" />
+              <div className="absolute inset-0 bg-linear-to-t from-surface-elevated/90 via-transparent to-transparent md:bg-linear-to-r md:from-transparent md:via-transparent md:to-surface-elevated/90 lg:to-surface-elevated" />
               <div className="absolute left-6 top-6 rounded-full border border-chrome/40 bg-void/60 px-4 py-1.5 text-xs uppercase tracking-wider text-chrome-light backdrop-blur-sm">
                 Editor&apos;s Choice
               </div>
             </div>
-            <div className="flex flex-col justify-center p-8 lg:col-span-5 lg:p-12">
+            <div className="flex flex-col justify-center p-6 md:p-8 lg:col-span-5 lg:p-12">
               <p className="text-sm uppercase tracking-[0.2em] text-chrome">{spotlight.brand}</p>
               <h2 className="mt-3 font-display text-3xl font-bold md:text-4xl">{spotlight.name}</h2>
               <p className="mt-4 text-muted">{spotlight.tagline}</p>

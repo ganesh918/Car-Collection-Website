@@ -38,8 +38,8 @@ export default function Contact() {
           subtitle="Showroom appointments, partnerships, or press — we respond within 24 hours on business days."
         />
 
-        <div className="grid gap-10 lg:grid-cols-5">
-          <div className="space-y-6 lg:col-span-2">
+        <div className="grid gap-10 md:grid-cols-5 md:gap-8">
+          <div className="space-y-6 md:col-span-2">
             {[
               { icon: MapPin, title: 'Showroom', text: '88 Horizon Drive, Beverly Hills, CA 90210' },
               { icon: Phone, title: 'Phone', text: '+1 (800) 555-0199' },
@@ -64,7 +64,7 @@ export default function Contact() {
             </div>
           </div>
 
-          <div className="lg:col-span-3">
+          <div className="md:col-span-3">
             {sent ? (
               <div className="rounded-3xl border border-chrome/30 bg-chrome/10 p-10 text-center">
                 <p className="font-display text-2xl font-bold">Message sent</p>
